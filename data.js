@@ -1,3 +1,15 @@
+// Define the board parameters
+const boardShape = [
+    [ 0,  0,  0,  0,  1, -1,  1,  0,  0,  0,  0],
+    [ 0,  0,  0,  1, -1,  1, -1,  1,  0,  0,  0],
+    [ 0,  0,  1, -1,  1, -1,  1, -1,  1,  0,  0],
+    [ 0,  1, -1,  1, -1,  1, -1,  1, -1,  1,  0],
+    [ 1, -1,  1, -1,  1, -1,  1, -1,  1, -1,  1],
+    [-1,  1, -1,  1, -1,  1, -1,  1, -1,  1, -1],
+    [ 0, -1,  1, -1,  1, -1,  1, -1,  1, -1,  0]
+];
+
+// Define the pieces (shapes made up of equilateral triangles)
 const piecesData = {
     'A (人与羊)': {
         shapeByRotation: {
