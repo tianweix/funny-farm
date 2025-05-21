@@ -1,0 +1,164 @@
+html {
+    background-color: #f0f8ff; /* AliceBlue */
+    height: 100%; /* Ensure html covers full height for background */
+}
+body {
+    font-family: 'Nunito', Arial, sans-serif; /* Using Nunito */
+    /* background-color and background-image properties removed/handled by html & ::before */
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; /* For stacking context */
+    z-index: 0;       /* Ensures body content is above the ::before pseudo-element */
+}
+body::before {
+    content: "";
+    position: fixed; /* Cover the viewport and stay fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('img/background.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.1; /* 10% opacity for the background image */
+    z-index: -1; /* Place it behind the body's content */
+}
+h1 {
+    color: #ff6347; /* Tomato red */
+    font-size: 3em;
+    text-shadow: 2px 2px 4px #aaa;
+    margin-bottom: 20px;
+}
+h2 {
+    color: #4682b4; /* SteelBlue */
+    font-size: 1.8em;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+#board {
+    margin: 0; /* Adjusted from 20px auto */
+    position: relative;
+    width: 480px;
+    height: 485px;
+    border: 5px solid #8b4513; /* SaddleBrown */
+    border-radius: 15px;
+    background-color: #f5f5dc; /* Beige */
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+/* Styling for board triangles */
+#board svg polygon { 
+    stroke: #a2b18e; /* A muted green for triangle borders */
+    stroke-width: 1;
+}
+/* Empty board cells */
+#board svg polygon[fill="#f0f0f0"] { 
+    fill: #f5f5f5; /* Slightly off-white */
+}
+
+
+#pieces {
+    margin: 0; /* Adjusted from 20px */
+    /* Consider adding a specific margin-top if needed, but the h2 above it has margin-bottom */
+    /* max-width: 350px; */ /* Removed to allow full width of new parent */
+    width: 100%; /* Added to fill parent */
+    height: 485px; /* Explicit height to match board */
+    overflow-y: auto; /* Added for scrolling if pieces overflow */
+    box-sizing: border-box; /* Added for better padding/width behavior */
+    text-align: center;
+    background-color: #fffacd; /* LemonChiffon */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+.piece {
+    /* display: inline-block; /* Removed */
+    margin: 0; /* Margin handled by gap in flex container */
+    cursor: move;
+    padding: 5px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+.piece:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+/* Style for piece name label */
+.piece-label { 
+    font-weight: bold;
+    color: #555;
+    font-size: 0.9em;
+    margin-top: 5px;
+    text-align: center; /* Ensure label is centered under piece SVG */
+}
+
+
+.controls {
+    margin: 30px 20px;
+    text-align: center;
+}
+button {
+    background-color: #ff9966; /* Orangey-pink */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    border-radius: 25px; /* Pill-shaped buttons */
+    cursor: pointer;
+    margin: 5px 10px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    font-weight: bold;
+}
+button:hover:not(:disabled) {
+    background-color: #ff7744;
+    transform: translateY(-2px);
+}
+button:active:not(:disabled) {
+    transform: translateY(1px);
+}
+button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+#message {
+    margin: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #228b22; /* ForestGreen for success */
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    min-height: 30px; /* Ensure space even if empty */
+    transition: color 0.3s ease; /* Smooth color transition for message */
+}
+#message.error { /* Class for error messages */
+    color: #dc143c; /* Crimson for errors */
+}
+#message.solving { /* Class for solving messages */
+    color: #4682b4; /* SteelBlue for solving */
+}
+#message.paused { /* Class for paused messages */
+    color: #ffa500; /* Orange for paused state */
+}
+
+
+/* Styling for the selected piece in the 'Available Pieces' list */
+/* JS handles outline, this can be for additional effects if desired */
+.piece svg.selected {
+     box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.6), 0 0 8px rgba(255,0,0,0.4); /* Red glow */
+     /* outline: none; /* If you want to fully replace the JS outline */
+} 

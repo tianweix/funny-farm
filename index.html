@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Funny Farm Puzzle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1 style="text-align:center;">Funny Farm Puzzle</h1>
+
+<div id="game-container" style="display: flex; justify-content: center; align-items: flex-start; gap: 30px; margin-top: 20px; width: 100%; flex-wrap: wrap;">
+    <div id="board-area-wrapper" style="display: flex; flex-direction: column; align-items: center;">
+        <h2 style="text-align:center; color: #4682b4; font-size: 1.8em; margin-top: 0; margin-bottom: 10px;">Board</h2>
+        <div id="board"></div>
+    </div>
+    <div id="pieces-area" style="display: flex; flex-direction: column; align-items: stretch; width: 500px;">
+        <h2 style="text-align:center; color: #4682b4; font-size: 1.8em; margin-top: 0; margin-bottom: 10px;">Available Pieces</h2>
+        <div id="pieces"></div>
+    </div>
+</div>
+
+<div class="controls">
+    <button onclick="rotatePiece()">Rotate Selected Piece</button>
+    <button onclick="undoStep()">Undo Step</button>
+    <button onclick="toggleSolver()">Solve Puzzle</button>
+    <button onclick="resetPuzzle()">Reset Puzzle</button>
+</div>
+
+<div id="message"></div>
+
+<script src="pieces_data.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
