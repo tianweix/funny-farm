@@ -153,6 +153,50 @@ function allowDrop(event) {
     event.preventDefault();
 }
 
+const SNAP_SEARCH_RADIUS = 2; // How far to look for a snap position (e.g., 2 means a 5x5 area centered on drop)
+
+/**
+ * Finds the best valid placement for a piece near the ideal drop coordinates.
+ * It searches outwards in square layers from the ideal position.
+ * Assumes `canPlacePiece(piece, row, col)` function is defined elsewhere
+ * and returns true if the piece can be placed at (row, col), false otherwise.
+ */
+function findBestPlacement(piece, idealRow, idealCol) {
+    // Try the exact spot first
+    if (canPlacePiece(piece, idealRow, idealCol)) {
+        return { row: idealRow, col: idealCol };
+    }
+
+    // Search outwards in square layers
+    for (let d = 1; d <= SNAP_SEARCH_RADIUS; d++) {
+        // Check cells on the perimeter of a square of side 2*d+1, centered at idealRow, idealCol
+        // Top and bottom rows of the current search square
+        for (let cOffset = -d; cOffset <= d; cOffset++) {
+            // Top row: (idealRow - d, idealCol + cOffset)
+            if (canPlacePiece(piece, idealRow - d, idealCol + cOffset)) {
+                return { row: idealRow - d, col: idealCol + cOffset };
+            }
+            // Bottom row: (idealRow + d, idealCol + cOffset)
+            if (canPlacePiece(piece, idealRow + d, idealCol + cOffset)) {
+                return { row: idealRow + d, col: idealCol + cOffset };
+            }
+        }
+
+        // Left and right columns of the current search square (excluding corners already checked by above loops)
+        for (let rOffset = -d + 1; rOffset <= d - 1; rOffset++) {
+            // Left column: (idealRow + rOffset, idealCol - d)
+            if (canPlacePiece(piece, idealRow + rOffset, idealCol - d)) {
+                return { row: idealRow + rOffset, col: idealCol - d };
+            }
+            // Right column: (idealRow + rOffset, idealCol + d)
+            if (canPlacePiece(piece, idealRow + rOffset, idealCol + d)) {
+                return { row: idealRow + rOffset, col: idealCol + d };
+            }
+        }
+    }
+    return null; // No suitable placement found in the search radius
+}
+
 function dropPiece(event) {
     event.preventDefault();
     const pieceName = event.dataTransfer.getData('text');
@@ -170,14 +214,21 @@ function dropPiece(event) {
     {
         // col -= piece.shape[0].findIndex(element => element !== 0);
     }
-    if (canPlacePiece(piece, row, col)) {
-        placePieceOnBoard(piece, row, col);
-        history.push({ piece, row, col });
+
+    const bestPosition = findBestPlacement(piece, row, col);
+
+    if (bestPosition) {
+        // Assumes `placePieceOnBoard(piece, row, col)` function is defined elsewhere
+        // and handles the actual placement on the game board data structure and UI.
+        placePieceOnBoard(piece, bestPosition.row, bestPosition.col);
+        // Assumes `history` is a global array for game state history.
+        history.push({ piece, row: bestPosition.row, col: bestPosition.col });
         piece.element.draggable = false;
         piece.element.style.opacity = '0.5';
+        // Assumes `updateButtonStates()` function is defined elsewhere.
         updateButtonStates();
     } else {
-        alert('Cannot place piece here.');
+        alert('Cannot place piece here or nearby.');
     }
 }
 
