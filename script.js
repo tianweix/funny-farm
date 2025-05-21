@@ -1,5 +1,5 @@
 // data.js defines boardShape, piecesData
-// board.js defines the initBoard, initPieces, drawPiece
+// board.js defines the initBoard, initPieces
 
 const boardRows = boardShape.length;
 const boardCols = boardShape[0].length;
@@ -186,83 +186,26 @@ async function runSolverAlgorithm() {
         }
     }
 
-    const originalPieceDisplayStates = {};
-    allPieceNames.forEach(name => { 
-        const pieceElement = pieces[name].element;
-        if (pieceElement) {
-            originalPieceDisplayStates[name] = {
-                draggable: pieceElement.draggable,
-                opacity: pieceElement.style.opacity,
-                rotation: pieces[name].rotation,
-                shape: pieces[name].shape
-            };
-        }
-    });
-
     let solved = false;
     try {
         if (await solveRecursive(allPieceNames, 0, userPlacedPieces)) {
-            // solveRecursive thinks it's done, now verify the board is completely full.
-            let isBoardTrulyFull = true;
-            for (let r = 0; r < boardRows; r++) {
-                for (let c = 0; c < boardCols; c++) {
-                    // Check if a valid board cell (boardShape[r][c] !== 0) is empty (!board[r][c])
-                    if (boardShape[r][c] !== 0 && !board[r][c]) {
-                        isBoardTrulyFull = false;
-                        break;
-                    }
+            solved = true;
+            messageEl.textContent = 'Puzzle solved!';
+            messageEl.className = '';
+            allPieceNames.forEach(pieceName => {
+                const piece = pieces[pieceName];
+                if (piece.element) {
+                    piece.element.draggable = false;
+                    piece.element.style.opacity = '0.5'; 
                 }
-                if (!isBoardTrulyFull) break;
-            }
-
-            if (isBoardTrulyFull) {
-                solved = true;
-                messageEl.textContent = 'Puzzle solved!';
-                messageEl.className = '';
-                allPieceNames.forEach(pieceName => {
-                    const piece = pieces[pieceName];
-                    if (piece.element) {
-                        piece.element.draggable = false;
-                        piece.element.style.opacity = '0.5'; 
-                    }
-                });
-            } else {
-                solved = false; 
-            }
+            });
         } else {
             solved = false;
         }
 
-        if (!solved) {
-            if (!isSolverPaused) {
-                messageEl.textContent = 'No solution found. Try placing some pieces manually or reset.';
-                messageEl.className = 'error';
-            }
-            if (!isSolverPaused && !isSolverRunning) { 
-                allPieceNames.forEach(name => {
-                    if (!userPlacedPieces.includes(name)) {
-                        let isNowPlaced = false;
-                        for (let r = 0; r < boardRows; r++) {
-                            for (let c = 0; c < boardCols; c++) {
-                                if (board[r][c] === name) {
-                                    isNowPlaced = true;
-                                    break;
-                                }
-                            }
-                            if (isNowPlaced) break;
-                        }
-                        const pieceElement = pieces[name].element;
-                        if (!isNowPlaced && pieceElement && originalPieceDisplayStates[name]) {
-                            pieceElement.draggable = originalPieceDisplayStates[name].draggable;
-                            pieceElement.style.opacity = originalPieceDisplayStates[name].opacity;
-                            const piece = pieces[name];
-                            piece.rotation = originalPieceDisplayStates[name].rotation;
-                            piece.shape = originalPieceDisplayStates[name].shape;
-                            drawPiece(piece);
-                        }
-                    }
-                });
-            }
+        if (!solved && !isSolverPaused && isSolverRunning) {
+            messageEl.textContent = 'No solution found. Try placing some pieces manually or reset.';
+            messageEl.className = 'error';
         }
     } catch (e) {
         console.error("Error during solving:", e);
@@ -301,45 +244,32 @@ async function solveRecursive(pieceNames, pieceIndex, placedPieces) {
         if (!isSolverRunning) return false;
     }
 
-    // Advance pieceIndex past pieces that were already placed by the user.
-    // This mirrors the logic from the simpler HTML version.
-    let currentProcessingPieceIndex = pieceIndex;
-    while (currentProcessingPieceIndex < pieceNames.length && placedPieces.includes(pieceNames[currentProcessingPieceIndex])) {
-        currentProcessingPieceIndex++;
+    while (pieceIndex < pieceNames.length && placedPieces.includes(pieceNames[pieceIndex])) {
+        pieceIndex++;
     }
-
-    // Base Case: If all pieces have been considered (either user-placed or successfully placed by solver based on index)
-    // This is the simpler base case from the HTML version.
-    if (currentProcessingPieceIndex >= pieceNames.length) {
+    if (pieceIndex >= pieceNames.length) {
         return true; 
     }
 
     iterCnt++;
     if (iterCnt % 2000 === 0) {
-        console.log(`Solver iteration: ${iterCnt}, considering piece: ${pieceNames[currentProcessingPieceIndex]}`);
+        console.log(`Solver iteration: ${iterCnt}, considering piece: ${pieceNames[pieceIndex]}`);
         await new Promise(resolve => setTimeout(resolve, 0)); // Yield for UI updates/pause check
     }
 
-    const pieceName = pieceNames[currentProcessingPieceIndex];
+    const pieceName = pieceNames[pieceIndex];
     const piece = pieces[pieceName];
-    const originalShape = piece.shape; 
-    const originalRotation = piece.rotation;
-
     const rotations = [0, 60, 120, 180, 240, 300];
-
     for (let r = 0; r < boardRows; r++) {
         for (let c = 0; c < boardCols; c++) {
-            // Rely on canPlacePiece to handle boardShape[r][c] === 0 or other invalid placements.
             for (const rotation of rotations) {
                 if (piecesData[piece.name].duplicatedRotations && piecesData[piece.name].duplicatedRotations.includes(rotation)) {
                     continue;
                 }
                 piece.shape = piecesData[piece.name].shapeByRotation[rotation];
-                piece.rotation = rotation; 
-
                 if (canPlacePiece(piece, r, c)) {
                     placePieceOnBoard(piece, r, c);
-                    if (await solveRecursive(pieceNames, currentProcessingPieceIndex + 1, placedPieces)) {
+                    if (await solveRecursive(pieceNames, pieceIndex + 1, placedPieces)) {
                         return true;
                     }
                     removePieceFromBoard(piece, r, c); // Backtrack
@@ -348,13 +278,8 @@ async function solveRecursive(pieceNames, pieceIndex, placedPieces) {
         }
     }
 
-    piece.shape = originalShape; 
-    piece.rotation = originalRotation;
-    // drawPiece(piece); // Optionally redraw if it was visually changed if needed
-
     return false;
 }
 
 resetPuzzle();
-// Ensure buttons are initialized on load, as resetPuzzle might not find them yet
 document.addEventListener('DOMContentLoaded', updateButtonStates); 
