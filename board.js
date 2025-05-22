@@ -240,6 +240,24 @@ function selectPiece(name) {
     selectedPiece = pieces[name];
     selectedPiece.element.querySelector('svg').classList.add('selected');
     selectedPiece.element.querySelector('svg').style.outline = '2px solid red';
+    
+    // Check if the selected piece is already placed on the board
+    // and disable rotation if it is
+    if (!rotateButton) updateButtonStates();
+    
+    // Check board array to see if this piece is already placed
+    let isPiecePlaced = false;
+    for (let r = 0; r < boardRows; r++) {
+        for (let c = 0; c < boardCols; c++) {
+            if (board[r][c] === name) {
+                isPiecePlaced = true;
+                break;
+            }
+        }
+        if (isPiecePlaced) break;
+    }
+    
+    rotateButton.disabled = isPiecePlaced;
 }
 
 function rotatePiece() {

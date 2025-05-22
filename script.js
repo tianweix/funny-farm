@@ -54,6 +54,9 @@ function placePieceOnBoard(piece, row, col) {
             }
         }
     }
+    // Disable rotation for placed pieces
+    if (!rotateButton) updateButtonStates();
+    rotateButton.disabled = true;
 }
 
 function removePieceFromBoard(piece, row, col) {
@@ -78,6 +81,11 @@ function undoStep() {
         lastMove.piece.element.draggable = true;
         lastMove.piece.element.style.opacity = '1';
         updateButtonStates();
+        
+        // Re-enable rotation if a piece is selected
+        if (selectedPiece) {
+            rotateButton.disabled = false;
+        }
     } else {
         alert('No moves to undo.');
     }
@@ -118,7 +126,15 @@ function updateButtonStates() {
         solveButton.textContent = 'Solve Puzzle';
         solveButton.disabled = false;
         resetButton.disabled = false;
-        rotateButton.disabled = false;
+        
+        // Check if any piece is placed on the board
+        const placedPieces = getPlacedPieces();
+        if (placedPieces.length > 0 && selectedPiece && placedPieces.includes(selectedPiece.name)) {
+            rotateButton.disabled = true; // Disable rotation for placed pieces
+        } else {
+            rotateButton.disabled = !selectedPiece; // Only enable if a piece is selected
+        }
+        
         undoButton.disabled = history.length === 0;
     }
 }
