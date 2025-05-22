@@ -40,15 +40,6 @@ Below is a short demonstration of the web version:
 
 **Note on Gameplay:** The original physical game includes specific challenges where some pieces are pre-placed. This web version currently focuses on the primary goal of filling the entire empty board.
 
-## Features
-
-*   Interactive drag-and-drop interface for placing pieces.
-*   Piece rotation.
-*   Undo functionality.
-*   Automated puzzle solver with pause/resume capability.
-*   Visually distinct pieces and a clear game board.
-*   Responsive UI elements and feedback messages.
-
 ## Notes
 
 *   A significant portion of the code for this project, including this INSTRUCTIONS itself, was developed with the assistance of AI.
