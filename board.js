@@ -227,6 +227,9 @@ function dropPiece(event) {
         piece.element.style.opacity = '0.5';
         // Assumes `updateButtonStates()` function is defined elsewhere.
         updateButtonStates();
+        
+        // Check if the puzzle is solved after placing a piece
+        checkPuzzleSolved();
     } else {
         alert('Cannot place piece here or nearby.');
     }

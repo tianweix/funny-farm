@@ -11,6 +11,7 @@ let history = [];
 let pieces = {};
 let isSolverRunning = false;
 let isSolverPaused = false;
+let isPuzzleSolved = false;
 let solveButton;
 let resetButton;
 let rotateButton;
@@ -102,6 +103,7 @@ function resetPuzzle() {
 
     isSolverRunning = false;
     isSolverPaused = false;
+    isPuzzleSolved = false;
     updateButtonStates();
 
     setTimeout(() => { if(messageEl.textContent === 'Game Reset!') messageEl.textContent = ''; }, 2000);
@@ -114,6 +116,14 @@ function updateButtonStates() {
         resetButton = document.querySelector('button[onclick="resetPuzzle()"]');
         rotateButton = document.querySelector('button[onclick="rotatePiece()"]');
         undoButton = document.querySelector('button[onclick="undoStep()"]');
+    }
+
+    if (isPuzzleSolved) {
+        solveButton.disabled = true;
+        undoButton.disabled = true;
+        rotateButton.disabled = true;
+        resetButton.disabled = false;
+        return;
     }
 
     if (isSolverRunning) {
@@ -175,31 +185,8 @@ async function runSolverAlgorithm() {
     const allPieceNames = Object.keys(pieces);
     const userPlacedPieces = getPlacedPieces(); 
 
-    // Check if user already solved it
-    if (userPlacedPieces.length === allPieceNames.length) {
-        let isBoardFullByUser = true;
-        for (let r = 0; r < boardRows; r++) {
-            for (let c = 0; c < boardCols; c++) {
-                if (boardShape[r][c] !== 0 && !board[r][c]) {
-                    isBoardFullByUser = false;
-                    break;
-                }
-            }
-            if (!isBoardFullByUser) break;
-        }
-        if (isBoardFullByUser) { 
-            messageEl.textContent = 'Puzzle solved!';
-            messageEl.className = '';
-            allPieceNames.forEach(pieceName => {
-                if (pieces[pieceName] && pieces[pieceName].element) {
-                    pieces[pieceName].element.draggable = false;
-                }
-            });
-            isSolverRunning = false;
-            isSolverPaused = false;
-            updateButtonStates();
-            return; 
-        }
+    if (checkPuzzleSolved()) {
+        return; // Puzzle is already solved by the user
     }
 
     let solved = false;
@@ -208,6 +195,7 @@ async function runSolverAlgorithm() {
             solved = true;
             messageEl.textContent = 'Puzzle solved!';
             messageEl.className = '';
+            isPuzzleSolved = true;
             allPieceNames.forEach(pieceName => {
                 const piece = pieces[pieceName];
                 if (piece.element) {
@@ -294,6 +282,44 @@ async function solveRecursive(pieceNames, pieceIndex, placedPieces) {
         }
     }
 
+    return false;
+}
+
+function checkPuzzleSolved() {
+    const messageEl = document.getElementById('message');
+    const allPieceNames = Object.keys(pieces);
+    const placedPieces = getPlacedPieces();
+    
+    // Check if all pieces are placed
+    if (placedPieces.length === allPieceNames.length) {
+        // Verify all valid board positions are filled
+        let isBoardFull = true;
+        for (let r = 0; r < boardRows; r++) {
+            for (let c = 0; c < boardCols; c++) {
+                if (boardShape[r][c] !== 0 && !board[r][c]) {
+                    isBoardFull = false;
+                    break;
+                }
+            }
+            if (!isBoardFull) break;
+        }
+        
+        if (isBoardFull) {
+            messageEl.textContent = 'Puzzle solved!';
+            messageEl.className = '';
+            isPuzzleSolved = true;
+            
+            // Make all pieces non-draggable
+            allPieceNames.forEach(pieceName => {
+                if (pieces[pieceName] && pieces[pieceName].element) {
+                    pieces[pieceName].element.draggable = false;
+                }
+            });
+            
+            updateButtonStates();
+            return true;
+        }
+    }
     return false;
 }
 
