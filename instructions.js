@@ -51,7 +51,7 @@ Below is a short demonstration of the web version:
 
 ## Notes
 
-*   A significant portion of the code for this project, including this README file itself, was developed with the assistance of AI.
+*   A significant portion of the code for this project, including this INSTRUCTIONS itself, was developed with the assistance of AI.
 *   Feedback and issue reports are welcome! Please feel free to submit them in the GitHub issue tracker. I plan to explore and test the capabilities of more advanced AI models (such as OpenAI\\'s Codex or future alternatives) for this project\\'s further development and maintenance tasks once they become available.
 *   Will AI be able to fully take over this project and replace human developers in the future? I\\'m not sure. But it\\'s fun to watch!
 `; 
