@@ -1,4 +1,4 @@
-# Funny Farm Puzzle
+const instructionsContent = `# Funny Farm Puzzle
 
 Welcome to the Funny Farm where life in the barnyard is more fun than work!
 
@@ -52,5 +52,36 @@ Below is a short demonstration of the web version:
 ## Notes
 
 *   A significant portion of the code for this project, including this README file itself, was developed with the assistance of AI.
-*   Feedback and issue reports are welcome! Please feel free to submit them in the GitHub issue tracker. I plan to explore and test the capabilities of more advanced AI models (such as OpenAI's Codex or future alternatives) for this project's further development and maintenance tasks once they become available.
-*   Will AI be able to fully take over this project and replace human developers in the future? I'm not sure. But it's fun to watch!
+*   Feedback and issue reports are welcome! Please feel free to submit them in the GitHub issue tracker. I plan to explore and test the capabilities of more advanced AI models (such as OpenAI\\'s Codex or future alternatives) for this project\\'s further development and maintenance tasks once they become available.
+*   Will AI be able to fully take over this project and replace human developers in the future? I\\'m not sure. But it\\'s fun to watch!
+`; 
+
+// Define the click handler function
+function handleModalClick(event) {
+    const modal = document.getElementById('instructions-modal');
+    if (event.target === modal) {
+        closeInstructions();
+    }
+}
+
+async function showInstructions() {
+    const modal = document.getElementById('instructions-modal');
+    const textArea = document.getElementById('instructions-text-area');
+    try {
+        textArea.innerHTML = marked.parse(instructionsContent);
+        modal.style.display = 'block';
+        // Add event listener to close modal on background click
+        modal.addEventListener('click', handleModalClick);
+    } catch (error) {
+        console.error('Error parsing instructions content:', error);
+        textArea.innerHTML = '<p>Error loading instructions. Please try again later.</p>';
+        modal.style.display = 'block'; 
+    }
+}
+
+function closeInstructions() {
+    const modal = document.getElementById('instructions-modal');
+    modal.style.display = 'none';
+    // Remove event listener to prevent multiple listeners
+    modal.removeEventListener('click', handleModalClick);
+}

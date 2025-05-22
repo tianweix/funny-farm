@@ -162,3 +162,16 @@ button:disabled {
      box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.6), 0 0 8px rgba(255,0,0,0.4); /* Red glow */
      /* outline: none; /* If you want to fully replace the JS outline */
 } 
+
+/* Styles for images within the instructions modal */
+#instructions-text-area img {
+    max-width: 60%;      /* Max width is 60% of the container */
+    height: auto;        /* Maintain aspect ratio */
+    display: block;      /* Allows margin auto to work for centering */
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;    /* Some space above the image */
+    margin-bottom: 10px; /* Some space below the image */
+    border-radius: 8px;  /* Optional: rounded corners for images */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: subtle shadow */
+} 

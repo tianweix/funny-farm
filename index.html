@@ -9,7 +9,16 @@
 </head>
 <body>
 
-<h1 style="text-align:center;">Funny Farm Puzzle</h1>
+<span onclick="showInstructions()" style="position: fixed; right: 20px; top: 20px; cursor: pointer; width: 48px; height: 48px; z-index: 1001; fill: #888;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 28 28">
+        <path d="M0 0h24v24H0z" fill="none"/>
+        <path d="M19.44 12.99l-.01.02c.04-.33.07-.67.07-1.01s-.03-.68-.07-1.01l.01.02 2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98L14.47 2.4c-.03-.24-.24-.4-.48-.4H9.99c-.24 0-.45.16-.48.4L9.13 4.06c-.61.25-1.17.58-1.69.98l-2.49-1c-.22-.08-.49 0-.61.22l-2 3.46c-.12.22-.07.49.12.64l2.11 1.65-.01-.02c-.04.33-.07.67-.07 1.01s.03.68.07 1.01l-.01-.02-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.4.48.4h4.02c.24 0 .45-.16.48-.4l.38-2.65c.61-.25 1.17-.58 1.69-.98l2.49 1c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zm-7.44 2.51c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/>
+    </svg>
+</span>
+
+<h1 style="text-align:center; position: relative;">
+    Funny Farm Puzzle
+</h1>
 
 <div id="game-container" style="display: flex; justify-content: center; align-items: flex-start; gap: 30px; margin-top: 20px; width: 100%; flex-wrap: wrap;">
     <div id="board-area-wrapper" style="display: flex; flex-direction: column; align-items: center;">
@@ -31,6 +40,16 @@
 
 <div id="message"></div>
 
+<div id="instructions-modal" style="display:none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000; overflow-y: auto;">
+    <div id="instructions-content" style="background-color: #fefefe; margin: 5% auto; padding: 20px; border: 1px solid #888; width: 80%; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19); position: relative;">
+        <span onclick="closeInstructions()" style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+        <h2>Instructions</h2>
+        <div id="instructions-text-area"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="instructions.js"></script>
 <script src="data.js"></script>
 <script src="board.js"></script>
 <script src="script.js"></script>
