@@ -23,6 +23,12 @@ For example, here are the steps for the first challenge:
 
 ## How to Play (Web Version)
 
+You can play the live version of the game at: [https://funnyfarm.ecs-friday.com/](https://funnyfarm.ecs-friday.com/)
+
+Below is a short demonstration of the web version:
+
+![Funny Farm Web Demo](img/demo.gif)
+
 1.  Open the `index.html` file in a web browser.
 2.  Drag and drop the available pieces from the right panel onto the board on the left.
 3.  Select a piece from the "Available Pieces" list by clicking on it.
@@ -50,4 +56,10 @@ For example, here are the steps for the first challenge:
 *   `board.js`: Handles the rendering and initial interaction logic for the game board and pieces (SVG drawing, drag events).
 *   `script.js`: Contains the core game logic, including piece placement validation, solver algorithm, and UI controls.
 *   `img/`: Directory for images (e.g., `physical-game.png`, `background.png`, example step images).
-*   `favicon.ico`: The icon for the browser tab. 
+*   `favicon.ico`: The icon for the browser tab.
+
+## Notes
+
+*   A significant portion of the code for this project, including this README file itself, was developed with the assistance of AI.
+*   Feedback and issue reports are welcome! Please feel free to submit them in the GitHub issue tracker. I plan to explore and test the capabilities of more advanced AI models (such as OpenAI's Codex or future alternatives) for project further development and maintenance tasks once they become available.
+*   Will AI be able to fully take over this project and replace human developers in the future? I'm not sure. But it's fun to watch!
