@@ -2,7 +2,8 @@
 
 Welcome to the Funny Farm where life in the barnyard is more fun than work!
 
-This project is a web-based adaptation of the physical "Funny Farm" triangular tiling puzzle game. The goal is to fit all the themed pieces onto the game board.
+This project is a web-based adaptation of the physical "Funny Farm" triangular tiling puzzle game.
+The goal of the game is to fit all the themed pieces onto the game board.
 
 ![Funny Farm Physical Game](img/physical-game.png)
 
@@ -54,12 +55,12 @@ Below is a short demonstration of the web version:
 *   `style.css`: Contains all the styling for the game.
 *   `data.js`: Defines the board shape and the geometric data for each puzzle piece.
 *   `board.js`: Handles the rendering and initial interaction logic for the game board and pieces (SVG drawing, drag events).
-*   `script.js`: Contains the core game logic, including piece placement validation, solver algorithm, and UI controls.
+*   `script.js`: Contains the core game logic, including piece placement validation, the solver algorithm, and UI controls.
 *   `img/`: Directory for images (e.g., `physical-game.png`, `background.png`, example step images).
 *   `favicon.ico`: The icon for the browser tab.
 
 ## Notes
 
 *   A significant portion of the code for this project, including this README file itself, was developed with the assistance of AI.
-*   Feedback and issue reports are welcome! Please feel free to submit them in the GitHub issue tracker. I plan to explore and test the capabilities of more advanced AI models (such as OpenAI's Codex or future alternatives) for project further development and maintenance tasks once they become available.
+*   Feedback and issue reports are welcome! Please feel free to submit them in the GitHub issue tracker. I plan to explore and test the capabilities of more advanced AI models (such as OpenAI's Codex or future alternatives) for this project's further development and maintenance tasks once they become available.
 *   Will AI be able to fully take over this project and replace human developers in the future? I'm not sure. But it's fun to watch!
