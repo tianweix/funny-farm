@@ -9,33 +9,29 @@
 </head>
 <body>
 
-<span onclick="showInstructions()" style="position: fixed; right: 20px; top: 20px; cursor: pointer; width: 48px; height: 48px; z-index: 1001; fill: #888;">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 28 28">
-        <path d="M0 0h24v24H0z" fill="none"/>
-        <path d="M19.44 12.99l-.01.02c.04-.33.07-.67.07-1.01s-.03-.68-.07-1.01l.01.02 2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98L14.47 2.4c-.03-.24-.24-.4-.48-.4H9.99c-.24 0-.45.16-.48.4L9.13 4.06c-.61.25-1.17.58-1.69.98l-2.49-1c-.22-.08-.49 0-.61.22l-2 3.46c-.12.22-.07.49.12.64l2.11 1.65-.01-.02c-.04.33-.07.67-.07 1.01s.03.68.07 1.01l-.01-.02-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.4.48.4h4.02c.24 0 .45-.16.48-.4l.38-2.65c.61-.25 1.17-.58 1.69-.98l2.49 1c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zm-7.44 2.51c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/>
-    </svg>
-</span>
-
-<h1 style="text-align:center; position: relative;">
-    Funny Farm Puzzle
-</h1>
-
-<div id="game-container" style="display: flex; justify-content: center; align-items: flex-start; gap: 30px; margin-top: 20px; width: 100%; flex-wrap: wrap;">
-    <div id="board-area-wrapper" style="display: flex; flex-direction: column; align-items: center;">
-        <h2 style="text-align:center; color: #4682b4; font-size: 1.8em; margin-top: 0; margin-bottom: 10px;">Board</h2>
-        <div id="board"></div>
-    </div>
-    <div id="pieces-area" style="display: flex; flex-direction: column; align-items: stretch; width: 500px;">
-        <h2 style="text-align:center; color: #4682b4; font-size: 1.8em; margin-top: 0; margin-bottom: 10px;">Available Pieces</h2>
-        <div id="pieces"></div>
+<div class="header">
+    <h1>Funny Farm Puzzle</h1>
+    <div class="top-controls">
+        <div class="button-container">
+            <button onclick="toggleSolver()">Solve Puzzle</button>
+            <button onclick="resetPuzzle()">Reset Puzzle</button>
+        </div>
+        <span onclick="showInstructions()" class="settings-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 28 28">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M19.44 12.99l-.01.02c.04-.33.07-.67.07-1.01s-.03-.68-.07-1.01l.01.02 2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98L14.47 2.4c-.03-.24-.24-.4-.48-.4H9.99c-.24 0-.45.16-.48.4L9.13 4.06c-.61.25-1.17.58-1.69.98l-2.49-1c-.22-.08-.49 0-.61.22l-2 3.46c-.12.22-.07.49.12.64l2.11 1.65-.01-.02c-.04.33-.07.67-.07 1.01s.03.68.07 1.01l-.01-.02-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.4.48.4h4.02c.24 0 .45-.16.48-.4l.38-2.65c.61-.25 1.17-.58 1.69-.98l2.49 1c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zm-7.44 2.51c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/>
+            </svg>
+        </span>
     </div>
 </div>
 
-<div class="controls">
-    <button onclick="rotatePiece()">Rotate Selected Piece</button>
-    <button onclick="undoStep()">Undo Step</button>
-    <button onclick="toggleSolver()">Solve Puzzle</button>
-    <button onclick="resetPuzzle()">Reset Puzzle</button>
+<div class="main-layout">
+  <div class="canvas-container">
+    <div id="canvas">
+      <div id="board-grid"></div>
+      <div id="pieces-layer"></div>
+    </div>
+  </div>
 </div>
 
 <div id="message"></div>

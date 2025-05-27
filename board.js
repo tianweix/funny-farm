@@ -118,7 +118,7 @@ function dragPiece(event) {
         // Click was on a transparent area of the piece's bounding box.
         // Prevent the drag operation from starting.
         event.preventDefault();
-        // Optional: console.log("Drag attempt on transparent area of piece denied.");
+
     }
 }
 
