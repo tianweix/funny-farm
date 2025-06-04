@@ -18,6 +18,34 @@ let resetButton;
 let rotateButton;
 let undoButton;
 
+// Build version derived from package.json
+let BUILD_VERSION = 'unknown';
+
+if (typeof process !== 'undefined' && process.versions && process.versions.node) {
+    // Node environment (tests, builds)
+    try {
+        BUILD_VERSION = require('./package.json').version;
+    } catch (e) {
+        // ignore
+    }
+} else if (typeof fetch !== 'undefined') {
+    // Browser environment - fetch package.json for version
+    fetch('./package.json')
+        .then(r => r.json())
+        .then(pkg => {
+            BUILD_VERSION = pkg.version;
+        })
+        .catch(() => { /* ignore */ });
+}
+
+if (typeof window !== 'undefined') {
+    window.addEventListener('keydown', event => {
+        if (event.key === 'F12') {
+            console.log(`Build version: ${BUILD_VERSION}`);
+        }
+    });
+}
+
 // 每个图块的状态
 let pieceStates = {}; // { name: { x, y, rotation, inCanvas, initialX, initialY } }
 let selectedPieceName = null;
