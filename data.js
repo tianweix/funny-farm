@@ -358,3 +358,6 @@ const piecesData = {
         duplicatedRotations: [120, 180, 240, 300]
     },
 }; 
+if (typeof module !== 'undefined') {
+  module.exports = { boardShape, piecesData };
+}

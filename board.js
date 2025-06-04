@@ -308,3 +308,6 @@ function drawPiece(piece) {
     pieceContainer.appendChild(label);
     piece.element.appendChild(pieceContainer);
 }
+if (typeof module !== 'undefined') {
+  module.exports = { findBestPlacement };
+}

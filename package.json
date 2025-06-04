@@ -1,0 +1,16 @@
+{
+  "name": "funny-farm",
+  "version": "1.0.0",
+  "description": "Welcome to the Funny Farm where life in the barnyard is more fun than work!",
+  "main": "board.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

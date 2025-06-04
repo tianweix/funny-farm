@@ -49,6 +49,15 @@ Below is a short demonstration of the web version:
 *   Visually distinct pieces and a clear game board.
 *   Responsive UI elements and feedback messages.
 
+## Running Tests
+
+This project uses [Jest](https://jestjs.io/) for unit tests. To run them locally:
+
+1. Install dependencies with `npm install`.
+2. Execute `npm test` to run all tests.
+
+Test files are located in the `__tests__` directory.
+
 ## Notes
 
 *   A significant portion of the code for this project, including this README file itself, was developed with the assistance of AI.
