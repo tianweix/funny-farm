@@ -1555,3 +1555,6 @@ function getBoardOffset() {
 
     return { minX, minY, maxX, maxY };
 } 
+if (typeof module !== 'undefined') {
+  module.exports = { calculatePieceTrianglePoints, getShapeAnchor, canPlacePiece };
+}
