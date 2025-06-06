@@ -614,7 +614,8 @@ function findBestLayout(pieces, sizes, layout) {
             col.height < columns[min].height ? idx : min, 0);
         
         // 将拼块添加到最短列（不需要额外缩放，因为triangleSize已经优化过了）
-        columns[shortestCol].height += piece.size.maxHeight + PIECE_LABEL_HEIGHT + PIECE_MARGIN;
+        // piece.size.maxHeight 已经包含文字高度，这里无需再次加入 PIECE_LABEL_HEIGHT
+        columns[shortestCol].height += piece.size.maxHeight + PIECE_MARGIN;
         columns[shortestCol].pieces.push({...piece, scale: 1});
     });
 
@@ -643,7 +644,8 @@ function createFallbackLayout(sortedPieces, layout) {
     const piecesPerCol = Math.ceil(sortedPieces.length / cols);
     sortedPieces.forEach((piece, index) => {
         const colIndex = Math.floor(index / piecesPerCol);
-        columns[colIndex].height += piece.size.maxHeight + PIECE_LABEL_HEIGHT + PIECE_MARGIN;
+        // piece.size.maxHeight 已含标签高度
+        columns[colIndex].height += piece.size.maxHeight + PIECE_MARGIN;
         columns[colIndex].pieces.push(piece);
     });
 
@@ -697,7 +699,8 @@ function initPiecesNew() {
             
 
             
-            y += piece.size.maxHeight * piece.scale + PIECE_LABEL_HEIGHT + PIECE_MARGIN;
+            // piece.size.maxHeight 已经包含标签高度
+            y += piece.size.maxHeight * piece.scale + PIECE_MARGIN;
         });
         
         x += bestLayout.targetColWidth + PIECE_MARGIN;
