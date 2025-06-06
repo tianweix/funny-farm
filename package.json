@@ -1,6 +1,6 @@
 {
   "name": "funny-farm",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Welcome to the Funny Farm where life in the barnyard is more fun than work!",
   "main": "board.js",
   "scripts": {
