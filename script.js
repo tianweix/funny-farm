@@ -57,6 +57,7 @@ let canvasHeight = 600;
 const GRID_AREA_RATIO = 0.4; // grid区域占40%
 const GRID_PADDING = 20; // grid区域的padding
 const PIECE_MARGIN = 16; // 拼块之间的间距
+const PIECE_LABEL_HEIGHT = 20; // 文字说明所占高度
 const MIN_SCALE = 0.6; // 最小缩放比例
 
 // 响应式布局的断点
@@ -396,7 +397,7 @@ function getMaxPieceSize(piece) {
         maxWidth = Math.max(maxWidth, bounds.width);
         maxHeight = Math.max(maxHeight, bounds.height);
     });
-    return { maxWidth, maxHeight };
+    return { maxWidth, maxHeight: maxHeight + PIECE_LABEL_HEIGHT };
 }
 
 // 计算布局边界和空间分配
@@ -477,7 +478,7 @@ function calculateOptimalLayout(testTriangleSize, isMobile, isTablet) {
             }
         }
         maxPieceWidth = Math.max(maxPieceWidth, pieceWidth);
-        maxPieceHeight = Math.max(maxPieceHeight, pieceHeight);
+        maxPieceHeight = Math.max(maxPieceHeight, pieceHeight + PIECE_LABEL_HEIGHT);
     });
 
     // 根据设备类型决定布局方式
@@ -613,7 +614,7 @@ function findBestLayout(pieces, sizes, layout) {
             col.height < columns[min].height ? idx : min, 0);
         
         // 将拼块添加到最短列（不需要额外缩放，因为triangleSize已经优化过了）
-        columns[shortestCol].height += piece.size.maxHeight + PIECE_MARGIN;
+        columns[shortestCol].height += piece.size.maxHeight + PIECE_LABEL_HEIGHT + PIECE_MARGIN;
         columns[shortestCol].pieces.push({...piece, scale: 1});
     });
 
@@ -642,7 +643,7 @@ function createFallbackLayout(sortedPieces, layout) {
     const piecesPerCol = Math.ceil(sortedPieces.length / cols);
     sortedPieces.forEach((piece, index) => {
         const colIndex = Math.floor(index / piecesPerCol);
-        columns[colIndex].height += piece.size.maxHeight + PIECE_MARGIN;
+        columns[colIndex].height += piece.size.maxHeight + PIECE_LABEL_HEIGHT + PIECE_MARGIN;
         columns[colIndex].pieces.push(piece);
     });
 
@@ -696,7 +697,7 @@ function initPiecesNew() {
             
 
             
-            y += piece.size.maxHeight * piece.scale + PIECE_MARGIN;
+            y += piece.size.maxHeight * piece.scale + PIECE_LABEL_HEIGHT + PIECE_MARGIN;
         });
         
         x += bestLayout.targetColWidth + PIECE_MARGIN;
