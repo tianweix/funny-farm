@@ -184,11 +184,8 @@ function App() {
   const [buildVersion, setBuildVersion] = useState('unknown');
   
   useEffect(() => {
-    // Fetch build version
-    fetch('./package.json')
-      .then(r => r.json())
-      .then(pkg => setBuildVersion(pkg.version))
-      .catch(() => {});
+    // Set a default build version since package.json isn't accessible in React dev server
+    setBuildVersion('1.0.2');
       
     // F12 keydown handler
     const handleKeyDown = (event) => {

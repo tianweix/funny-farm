@@ -1,6 +1,5 @@
 import React from 'react';
-import { boardShape, boardRows, boardCols, piecesData } from '../utils/gameUtils';
-import { calculateTrianglePoints } from '../utils/gameUtils';
+import { boardShape, boardRows, boardCols, piecesData, calculateTrianglePoints } from '../utils/gameUtils';
 
 function GameBoard({ board, triangleSize, onPlacePiece, onRemovePiece, onSelectPiece }) {
   

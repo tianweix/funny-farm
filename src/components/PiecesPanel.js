@@ -1,6 +1,5 @@
 import React from 'react';
-import { piecesData, getPieceWithRotation } from '../utils/gameUtils';
-import { calculatePieceTrianglePoints } from '../utils/gameUtils';
+import { piecesData, getPieceWithRotation, calculatePieceTrianglePoints } from '../utils/gameUtils';
 
 function PiecesPanel({ pieceStates, selectedPiece, onSelectPiece, onRotatePiece }) {
   
