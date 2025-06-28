@@ -1,4 +1,4 @@
-import { boardShape } from './data.js';
+import { boardShape } from './data';
 
 const boardRows = boardShape.length;
 const boardCols = boardShape[0].length;

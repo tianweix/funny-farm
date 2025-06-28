@@ -1,5 +1,5 @@
-import { boardShape, piecesData } from './data.js';
-import { canPlacePiece, findBestPlacement } from './logic.js';
+import { boardShape, piecesData } from './data';
+import { canPlacePiece, findBestPlacement } from './logic';
 
 const boardRows = boardShape.length;
 const boardCols = boardShape[0].length;
