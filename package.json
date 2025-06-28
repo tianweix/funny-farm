@@ -5,7 +5,9 @@
   "main": "board.js",
   "scripts": {
     "test": "jest",
-    "build": "echo 'No build step required'"
+    "build": "react-scripts build",
+    "dev": "react-scripts start",
+    "start": "react-scripts start"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +15,22 @@
   "type": "commonjs",
   "devDependencies": {
     "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-scripts": "^5.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
