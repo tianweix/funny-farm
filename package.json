@@ -5,13 +5,33 @@
   "main": "board.js",
   "scripts": {
     "test": "jest",
-    "build": "echo 'No build step required'"
+    "build": "react-app-rewired build",
+    "dev": "react-scripts start",
+    "start": "react-scripts start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {
     "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "css-what": "^6.2.0",
+    "react": "^19.1.0",
+    "react-app-rewired": "^2.2.1",
+    "react-dom": "^19.1.0",
+    "react-scripts": "^5.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
